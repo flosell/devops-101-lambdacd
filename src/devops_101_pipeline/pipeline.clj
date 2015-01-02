@@ -11,9 +11,11 @@
 
 (def pipeline-def
   `(
-    lambdacd.manualtrigger/wait-for-manual-trigger
+     (either
+       lambdacd.manualtrigger/wait-for-manual-trigger
+       wait-for-repo)
      (with-repo
-       commit-step)
+        commit-step)
   ))
 
 
