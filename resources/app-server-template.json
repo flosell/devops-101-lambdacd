@@ -1,0 +1,89 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Description" : "devops-part-four, app-server",
+
+  "Parameters" : {
+    "SubnetId" : { "Type" : "String" },
+    "SecurityGroupId" : { "Type" : "String" },
+    "ArtifactUri" : { "Type" : "String" }
+  },
+
+  "Resources" : {
+
+    "EIPAppServer" : {
+      "Type" : "AWS::EC2::EIP",
+      "Properties" : {
+        "InstanceId" : { "Ref" : "EC2InstanceAppServer" },
+        "Domain": "vpc"
+      }
+    },
+
+    "EC2InstanceAppServer" : {
+      "Type" : "AWS::EC2::Instance",
+      "Properties" : {
+        "ImageId" : "ami-20bd1f57",
+        "InstanceType" : "m1.medium",
+        "KeyName" : "main",
+        "SubnetId" : { "Ref" : "SubnetId" },
+        "SecurityGroupIds" : [ { "Ref" : "SecurityGroupId" } ],
+        "Tags" : [ { "Key" : "Name", "Value" : { "Fn::Join" : ["", ["App Server - Build ", { "Ref" : "ArtifactUri" } ] ] } } ],
+        "IamInstanceProfile" : { "Ref" : "InstanceProfileForAppServer" },
+        "UserData" : { "Fn::Base64" : { "Fn::Join" : [ "", [
+          "#!/bin/sh \n",
+          "apt-get update \n",
+          "apt-get upgrade -y \n",
+          "apt-get install openjdk-7-jdk -y \n",
+          "apt-get install python-pip -y \n",
+          "pip install awscli \n",
+          "useradd devops-user \n",
+          "mkdir /home/devops-user \n",
+          "chown devops-user:devops-user /home/devops-user \n",
+          "aws s3 cp ", { "Ref" : "ArtifactUri" }, " /home/devops-user \n",
+          "chown devops-user:devops-user /home/devops-user/application-*-standalone.jar \n",
+          "su - devops-user -c \"java -jar /home/devops-user/application-*-standalone.jar\""
+		    ]]}}
+      }
+    },
+
+    "InstanceProfileForAppServer": {
+      "Type": "AWS::IAM::InstanceProfile",
+      "Properties": {
+        "Path": "/",
+        "Roles": [ { "Ref": "RoleForAppServer" } ]
+      }
+    },
+
+    "RoleForAppServer" : {
+      "Type" : "AWS::IAM::Role",
+      "Properties" : {
+        "AssumeRolePolicyDocument": {
+          "Version" : "2012-10-17",
+          "Statement": [ {
+            "Effect" : "Allow",
+            "Principal" : { "Service" : [ "ec2.amazonaws.com" ] },
+            "Action" : [ "sts:AssumeRole" ]
+          } ]
+        },
+        "Path" : "/"
+      }
+    },
+
+    "PolicyForS3ReadAccess": {
+      "Type": "AWS::IAM::Policy",
+      "Properties": {
+        "PolicyName": "S3ReadAccess",
+        "PolicyDocument": {
+          "Version" : "2012-10-17",
+          "Statement": [ { "Effect": "Allow", "Action": [ "s3:Get*", "s3:List*" ], "Resource": "*" } ]
+        },
+        "Roles": [ { "Ref": "RoleForAppServer" } ]
+      }
+    }
+  },
+  "Outputs" : {
+
+    "AppServerPublicIp" : {
+      "Value" : { "Fn::GetAtt" : [ "EC2InstanceAppServer", "PublicIp" ] }
+    }
+  }
+}
