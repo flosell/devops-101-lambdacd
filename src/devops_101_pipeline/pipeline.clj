@@ -16,6 +16,7 @@
        wait-for-repo)
      (with-repo
         commit-step)
+     deploy-step
   ))
 
 
