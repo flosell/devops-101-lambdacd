@@ -181,15 +181,6 @@
       "DependsOn" : "VPCGatewayAttachment"
     },
 
-    "EIPCISlave" : {
-      "Type" : "AWS::EC2::EIP",
-      "Properties" : {
-        "InstanceId" : { "Ref" : "EC2InstanceCISlave" },
-        "Domain" : "vpc"
-      },
-      "DependsOn" : "VPCGatewayAttachment"
-    },
-
     "EC2InstanceCIMaster" : {
       "Type" : "AWS::EC2::Instance",
       "Properties" : {
@@ -198,20 +189,8 @@
         "KeyName" : "main",
         "SubnetId" : { "Ref" : "Subnet" },
         "SecurityGroupIds" : [ { "Ref" : "SecurityGroup" } ],
-        "Tags" : [ { "Key" : "Name", "Value" : "CI Master" } ]
-      }
-    },
-
-    "EC2InstanceCISlave" : {
-      "Type" : "AWS::EC2::Instance",
-      "Properties" : {
-        "ImageId" : "ami-20bd1f57",
-        "InstanceType" : "m1.medium",
-        "KeyName" : "main",
-        "SubnetId" : { "Ref" : "Subnet" },
-        "SecurityGroupIds" : [ { "Ref" : "SecurityGroup" } ],
-        "IamInstanceProfile" : { "Ref" : "InstanceProfileForCISlave" },
-        "Tags" : [ { "Key" : "Name", "Value" : "CI Slave" } ]
+        "Tags" : [ { "Key" : "Name", "Value" : "CI Master" } ],
+        "IamInstanceProfile" : { "Ref" : "InstanceProfileForCISlave" }
       }
     },
 
@@ -295,17 +274,8 @@
   },
 
   "Outputs" : {
-
     "CIMasterPublicIp" : {
       "Value" : { "Fn::GetAtt" : [ "EC2InstanceCIMaster", "PublicIp" ] }
-    },
-
-    "CISlavePublicIp" : {
-      "Value" : { "Fn::GetAtt" : [ "EC2InstanceCISlave", "PublicIp" ] }
-    },
-
-    "CIMasterPrivateIp" : {
-      "Value" : { "Fn::GetAtt" : [ "EC2InstanceCIMaster", "PrivateIp" ] }
     }
   }
 }

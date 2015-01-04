@@ -10,7 +10,8 @@
             [lambdacd.util :as util]
             [clojure.java.io :as io]
             [clojure.tools.logging :as log])
-  (:import (java.io File)))
+  (:import (java.io File))
+  (:gen-class))
 
 (defn ensure-dir [parent dirname]
   (let [d (io/file parent dirname)]
@@ -44,4 +45,7 @@
     (log/info "home-dir is" home-dir)
     ((:init meta-pipeline))
     ((:init pipeline))
-    (ring-server/serve (mk-routes (:ring-handler meta-pipeline) (:ring-handler pipeline)))))
+    (ring-server/serve
+      (mk-routes (:ring-handler meta-pipeline) (:ring-handler pipeline))
+      {:open-browser? false
+       :port 8080})))

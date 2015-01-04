@@ -10,5 +10,5 @@
                            [org.clojure/core.incubator "0.1.3"]
                            [ring-server "0.3.1"]]
             :main devops-101-pipeline.core
-            :profiles {:uberjar {:aot [devops-101-pipeline.meta.pipeline.main]}}
+            :profiles {:uberjar {:aot [devops-101-pipeline.core]}}
             :plugins [[lein-ring "0.8.13"]])

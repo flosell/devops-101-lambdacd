@@ -2,7 +2,7 @@
 
 PIPELINE_JAR_PATTERN="pipeline-*-standalone.jar"
 while true; do
-    CURRENT_JAR=$(ls $PIPELINE_JAR_PATTERN | SORT | tail -n 1)
+    CURRENT_JAR=$(ls $PIPELINE_JAR_PATTERN | sort | tail -n 1)
     echo "Starting Pipeline ${CURRENT_JAR}..."
     java -jar ${CURRENT_JAR}
 
