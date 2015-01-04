@@ -8,6 +8,7 @@
                            [ch.qos.logback/logback-core "1.0.13"]
                            [ch.qos.logback/logback-classic "1.0.13"]
                            [org.clojure/core.incubator "0.1.3"]]
-            :ring {:handler devops-101-pipeline.pipeline/app
-                   :init devops-101-pipeline.pipeline/start-pipeline-thread }
-            :plugins [[lein-ring "0.8.11"]])
+            :ring {:handler devops-101-pipeline.meta.pipeline/app
+                   :init devops-101-pipeline.meta.pipeline/start-pipeline-thread }
+            :profiles {:uberjar {:aot [devops-101-pipeline.meta.pipeline.main]}}
+            :plugins [[lein-ring "0.8.13"]])
