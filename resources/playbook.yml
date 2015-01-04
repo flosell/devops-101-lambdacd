@@ -3,16 +3,20 @@
 - hosts: ci-master
 
   tasks:
+  - name: ensure that the pipeline-user exists
+    user: name=pipeline
+    sudo: true
+
   - name: ensure that there is a folder to install the pipeline in
-    file: path=/opt/pipeline state=directory
+    file: path=/opt/pipeline state=directory owner=pipeline
     sudo: true
 
   - name: ensure that the initial pipeline is present
-    copy: src=../pipeline-0-standalone.jar dest=/opt/pipeline/
+    copy: src=../pipeline-0-standalone.jar dest=/opt/pipeline/ owner=pipeline
     sudo: true
 
   - name: ensure that the the pipeline-start-script is present
-    copy: src=../scripts/start-and-restart.sh dest=/opt/pipeline/ mode=755
+    copy: src=../scripts/start-and-restart.sh dest=/opt/pipeline/ mode=755 owner=pipeline
     sudo: true
 
   - name: ensure that the the pipeline-init-script is present

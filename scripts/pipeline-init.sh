@@ -3,6 +3,7 @@
 SERVICE_NAME=pipeline
 DAEMON="/opt/pipeline/start-and-restart.sh"
 DIR="/opt/pipeline"
+USER="pipeline"
 DAEMON_OPTS=""
 PIDFILE="/var/run/pipeline.pid"
 
@@ -13,7 +14,7 @@ fi
 
 start_service() {
   echo -n " * Starting $SERVICE_NAME... "
-  start-stop-daemon --make-pidfile --background --chdir $DIR -Sq -p $PIDFILE -x $DAEMON -- $DAEMON_OPTS
+  start-stop-daemon --make-pidfile --background --chdir $DIR --chuid $USER -Sq -p $PIDFILE -x $DAEMON -- $DAEMON_OPTS
   e=$?
   if [ $e -eq 1 ]; then
     echo "already running"
