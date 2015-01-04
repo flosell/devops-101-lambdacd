@@ -7,8 +7,8 @@
                            [org.slf4j/slf4j-api "1.7.5"]
                            [ch.qos.logback/logback-core "1.0.13"]
                            [ch.qos.logback/logback-classic "1.0.13"]
-                           [org.clojure/core.incubator "0.1.3"]]
-            :ring {:handler devops-101-pipeline.core/app
-                   :init devops-101-pipeline.core/start-pipeline-thread }
+                           [org.clojure/core.incubator "0.1.3"]
+                           [ring-server "0.3.1"]]
+            :main devops-101-pipeline.core
             :profiles {:uberjar {:aot [devops-101-pipeline.meta.pipeline.main]}}
             :plugins [[lein-ring "0.8.13"]])
