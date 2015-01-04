@@ -43,8 +43,8 @@
 (defn deploy [s3-address build-id ctx]
   (let [basedir (prepare-deploy-scripts)]
     (shell/bash ctx basedir
-                (str "/usr/local/bin/ruby deploy-new-app-server.rb " s3-address " " build-id)
-                (str "/usr/local/bin/ruby retire-old-app-server.rb " build-id))))
+                (str "ruby deploy-new-app-server.rb " s3-address " " build-id)
+                (str "ruby retire-old-app-server.rb " build-id))))
 
 (defn deploy-step [{s3-address :s3-address build-id :build-id} ctx]
   (deploy s3-address build-id ctx))
