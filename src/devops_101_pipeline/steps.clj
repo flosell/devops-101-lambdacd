@@ -7,7 +7,7 @@
             [clojure.java.io :as io]
             [lambdacd.util :as util]))
 
-(def devops-101-repo "git@github.com:flosell/devops-101.git")
+(def devops-101-repo "https://github.com/flosell/devops-101.git")
 
 (defn wait-for-repo [_ ctx]
   (git/wait-for-git ctx devops-101-repo "master"))
