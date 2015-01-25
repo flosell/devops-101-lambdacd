@@ -25,3 +25,8 @@ Sample code for a continuous delivery infrastructure in pure code:
 * your pipeline code is in `src/`. Make some changes, push them and have a look at your meta-pipeline. it will now build a new instance of the pipeline and (after you trigger the last step) redeploy itself. 
 
 
+## License
+
+Copyright © 2014 Florian Sellmayr
+
+Distributed under the Apache License 2.0
