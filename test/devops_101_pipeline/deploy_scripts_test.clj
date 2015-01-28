@@ -11,8 +11,13 @@
   (testing "that it puts the deploy-scripts from the classpath into a folder where we can execute them"
     (let [dir (prepare-deploy-scripts)
           template (io/file dir "app-server-template.json")
-          deploy-new-app-server (io/file dir "deploy-new-app-server.rb")]
+          deploy-new-app-server (io/file dir "deploy-new-app-server.rb")
+          retire-old-app-server (io/file dir "retire-old-app-server.rb")
+          playbook (io/file dir "playbook.yml")]
       (is (.exists template))
       (is (file-contains? template "AWSTemplateFormatVersion"))
       (is (.exists deploy-new-app-server))
-      (is (file-contains? deploy-new-app-server "#!/usr/bin/ruby")))))
+      (is (file-contains? deploy-new-app-server "#!/usr/bin/ruby"))
+      (is (.exists retire-old-app-server))
+      (is (file-contains? retire-old-app-server "#!/usr/bin/ruby"))
+      (is (not (.exists playbook))))))
