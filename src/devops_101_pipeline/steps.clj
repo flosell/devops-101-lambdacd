@@ -5,6 +5,7 @@
             [lambdacd.manualtrigger :as manualtrigger]
             [clojure.core.strint :as s]
             [clojure.java.io :as io]
+            [devops-101-pipeline.deploy-scripts :as deploy-scripts]
             [lambdacd.util :as util]))
 
 (def devops-101-repo "https://github.com/flosell/devops-101.git")
@@ -30,18 +31,10 @@
     (assoc shell-result :s3-address s3-address :build-id build-id)))
 
 
-(defn copy-to [dir resource-name]
-  (spit (str dir "/" resource-name) (slurp (io/resource resource-name))))
 
-(defn prepare-deploy-scripts []
-  (let [basedir (util/create-temp-dir)]
-    (copy-to basedir "app-server-template.json")
-    (copy-to basedir "deploy-new-app-server.rb")
-    (copy-to basedir "retire-old-app-server.rb")
-   basedir))
 
 (defn deploy [s3-address build-id ctx]
-  (let [basedir (prepare-deploy-scripts)]
+  (let [basedir (deploy-scripts/prepare-deploy-scripts)]
     (shell/bash ctx basedir
                 (str "ruby deploy-new-app-server.rb " s3-address " " build-id)
                 (str "ruby retire-old-app-server.rb " build-id))))
