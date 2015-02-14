@@ -39,7 +39,7 @@ def commence_creation_of_stack(s3_uri, subnet_id, security_group_id,build_id)
   --capabilities CAPABILITY_IAM`
 end
 
-def check_that_the_stack_has_been_created(s3_uri,build_id)
+def check_that_the_stack_has_been_created(build_id)
   describe_stacks_command = "aws cloudformation describe-stacks \
                              --stack-name app-server-#{build_id} \
                              --region eu-west-1 \
@@ -50,7 +50,8 @@ def check_that_the_stack_has_been_created(s3_uri,build_id)
   puts "Awaiting creation of app-server-#{build_id} with status of #{stack_status}"
 
   if stack_status == "CREATE_COMPLETE"
-    puts "Stack creation complete"
+    stackip=stacks.first["Outputs"].first["OutputValue"]
+    puts "Stack creation complete, application now available at http://#{stackip}:8080/"
     exit 0
   elsif stack_status != "CREATE_IN_PROGRESS"
     puts "Stack creation failed"
@@ -63,7 +64,7 @@ def main(s3_uri,build_id)
   security_group_id = extract_security_group_id
   commence_creation_of_stack(s3_uri, subnet_id, security_group_id,build_id)
   loop do
-    check_that_the_stack_has_been_created(s3_uri,build_id)
+    check_that_the_stack_has_been_created(build_id)
     sleep(15)
   end
 end
