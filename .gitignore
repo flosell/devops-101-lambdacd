@@ -10,3 +10,4 @@ pom.xml.asc
 .idea
 *.iml
 bin/inventory
+devops_101_pipeline.iml
