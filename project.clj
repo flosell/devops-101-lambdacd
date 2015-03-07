@@ -9,6 +9,7 @@
                            [ch.qos.logback/logback-classic "1.0.13"]
                            [org.clojure/core.incubator "0.1.3"]
                            [ring-server "0.3.1"]
+                           [lambdacd-cctray "0.1.1"]
                            [org.reflections/reflections "0.9.9"]]
             :main devops-101-pipeline.core
             :profiles {:uberjar {:aot [devops-101-pipeline.core]}}

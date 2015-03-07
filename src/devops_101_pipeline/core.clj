@@ -7,6 +7,7 @@
             [hiccup.core :as h]
             [hiccup.page :as page]
             [lambdacd.util :as util]
+            [lambdacd-cctray.core :as cctray]
             [clojure.java.io :as io]
             [clojure.tools.logging :as log])
   (:import (java.io File))
@@ -28,11 +29,11 @@
         [:li [:a {:href "pipeline/"} "DevOps 101 Demo Pipeline"]]
         [:li [:a {:href "meta/"} "Meta-Pipeline"]]]])))
 
-(defn mk-routes [meta-routes pipeline-routes]
+(defn mk-routes [meta-routes pipeline-routes cctray-pipeline-handler]
   (routes
     (context "/meta" [] meta-routes)
     (context "/pipeline" [] pipeline-routes)
-
+    (GET "/cctray/pipeline.xml" [] cctray-pipeline-handler)
     (GET "/" [] (index))))
 
 (defn -main [& args]
@@ -40,11 +41,12 @@
         meta-home-dir (ensure-dir home-dir "meta")
         pipeline-home-dir (ensure-dir home-dir "pipeline")
         meta-pipeline (lambdacd/mk-pipeline metapipeline/pipeline-def {:home-dir meta-home-dir})
-        pipeline (lambdacd/mk-pipeline pipeline/pipeline-def {:home-dir pipeline-home-dir})]
+        pipeline (lambdacd/mk-pipeline pipeline/pipeline-def {:home-dir pipeline-home-dir})
+        cctray-pipeline-handler (cctray/cctray-handler-for pipeline/pipeline-def (:state pipeline))]
     (log/info "home-dir is" home-dir)
     ((:init meta-pipeline))
     ((:init pipeline))
     (ring-server/serve
-      (mk-routes (:ring-handler meta-pipeline) (:ring-handler pipeline))
+      (mk-routes (:ring-handler meta-pipeline) (:ring-handler pipeline) cctray-pipeline-handler)
       {:open-browser? false
        :port 8080})))
