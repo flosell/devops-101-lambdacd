@@ -3,7 +3,6 @@
   (:require [devops-101-pipeline.meta.pipeline :as metapipeline]
             [devops-101-pipeline.pipeline :as pipeline]
             [ring.server.standalone :as ring-server]
-            [lambdacd.util :as uti]
             [lambdacd.core :as lambdacd]
             [hiccup.core :as h]
             [hiccup.page :as page]

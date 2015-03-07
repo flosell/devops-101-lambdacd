@@ -1,7 +1,7 @@
 (ns devops-101-pipeline.deploy-scripts
   (:require [lambdacd.util :as util]
             [clojure.java.io :as io]
-            [lambdacd.shell :as shell])
+            [lambdacd.steps.shell :as shell])
   (:import (org.reflections.util ConfigurationBuilder ClasspathHelper)
            (org.reflections.scanners ResourcesScanner)
            (org.reflections Reflections)

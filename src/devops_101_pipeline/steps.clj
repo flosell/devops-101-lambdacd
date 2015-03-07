@@ -1,12 +1,8 @@
 (ns devops-101-pipeline.steps
-  (:require [lambdacd.shell :as shell]
-            [lambdacd.execution :as execution]
-            [lambdacd.git :as git]
-            [lambdacd.manualtrigger :as manualtrigger]
+  (:require [lambdacd.steps.shell :as shell]
+            [lambdacd.steps.git :as git]
             [clojure.core.strint :as s]
-            [clojure.java.io :as io]
-            [devops-101-pipeline.deploy-scripts :as deploy-scripts]
-            [lambdacd.util :as util]))
+            [devops-101-pipeline.deploy-scripts :as deploy-scripts]))
 
 (def devops-101-repo "https://github.com/flosell/devops-101.git")
 

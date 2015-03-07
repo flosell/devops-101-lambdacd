@@ -1,11 +1,6 @@
 (ns devops-101-pipeline.meta.steps
-  (:require [lambdacd.shell :as shell]
-            [lambdacd.execution :as execution]
-            [lambdacd.git :as git]
-            [lambdacd.manualtrigger :as manualtrigger]
-            [clojure.core.strint :as s]
-            [clojure.java.io :as io]
-            [lambdacd.util :as util]))
+  (:require [lambdacd.steps.shell :as shell]
+            [lambdacd.steps.git :as git]))
 
 (defn pipeline-working-directory []
   (System/getProperty "user.dir"))
