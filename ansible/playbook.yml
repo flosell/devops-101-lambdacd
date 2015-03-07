@@ -16,7 +16,7 @@
     sudo: true
 
   - name: ensure that the the pipeline-start-script is present
-    copy: src=../scripts/start-and-restart.sh dest=/opt/pipeline/ mode=755 owner=pipeline
+    copy: src=../scripts/runner.sh dest=/opt/pipeline/ mode=755 owner=pipeline
     sudo: true
 
   - name: ensure that the the pipeline-init-script is present
