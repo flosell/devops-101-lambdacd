@@ -51,7 +51,8 @@ def check_that_the_stack_has_been_created(build_id)
 
   if stack_status == "CREATE_COMPLETE"
     stackip=stacks.first["Outputs"].first["OutputValue"]
-    puts "Stack creation complete, application now available at http://#{stackip}:8080/"
+    puts "Stack creation complete, application should eventually become available at http://#{stackip}:8080/"
+    puts "This might take a while as the server still needs to initialize. Add a smoke test that waits for the application to be up if you want to be notified"
     exit 0
   elsif stack_status != "CREATE_IN_PROGRESS"
     puts "Stack creation failed"
