@@ -4,7 +4,7 @@
             [lambdacd.steps.manualtrigger :as manualtrigger]
             [lambdacd.steps.git :as git]))
 
-(def devops-101-repo "https://github.com/flosell/lambdacd.git") ;; change this if you want to make your own changes
+(def devops-101-repo "https://github.com/flosell/devops-101-lambdacd.git") ;; change this if you want to make your own changes
 (def devops-101-branch "digitalocean")
 (defn wait-for-repo [_ ctx]
   (git/wait-for-git ctx devops-101-repo devops-101-branch))
