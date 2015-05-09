@@ -1,6 +1,7 @@
 (ns devops-101-pipeline.meta.steps
   (:require [lambdacd.steps.shell :as shell]
             [lambdacd.steps.support :as support]
+            [lambdacd.steps.manualtrigger :as manualtrigger]
             [lambdacd.steps.git :as git]))
 
 (defn pipeline-working-directory []
@@ -16,7 +17,7 @@
 
 (defn manual-trigger [args ctx]
   (support/chain-steps args ctx
-    [lambdacd.steps.manualtrigger/wait-for-manual-trigger
+    [manualtrigger/wait-for-manual-trigger
      use-digitalocean-branch]))
 
   (defn ^{:display-type :container} with-repo [& steps]
