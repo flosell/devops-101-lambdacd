@@ -2,10 +2,6 @@
 
 SCRIPT_DIR=$(dirname $0)
 
-if [ $# -ne 1 ]; then
-    echo "Usage: $0 <host-to-deploy-to>"
-    exit 1
-fi
 
 if [ -z $LAMBDACD_HOST ]; then
     echo "LAMBDACD_HOST environment variable not set, don't know where to deploy to"
