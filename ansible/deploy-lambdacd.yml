@@ -22,3 +22,5 @@
   - name: restart pipeline
     service: name=pipeline state=restarted enabled=true
     sudo: true
+    async: 45
+    poll: 5
