@@ -19,5 +19,11 @@ fi
 
 echo "Starting deployment of LambdaCD to $LAMBDACD_HOST"
 
-ansible-playbook  -i "${LAMBDACD_HOST}," -u root ../ansible/deploy-lambdacd.yml
+if [ "$LAMBDACD_HOST" -eq "localhost" ]; then
+    C="local"
+else
+    C="ssh"
+fi
+
+ansible-playbook  -i "${LAMBDACD_HOST}," -c ${C} -u root ../ansible/deploy-lambdacd.yml
 
