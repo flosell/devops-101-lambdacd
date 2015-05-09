@@ -23,6 +23,6 @@
     copy: src=../scripts/pipeline-init.sh dest=/etc/init.d/pipeline mode=755
     sudo: true
 
-  - name: start pipeline
-    service: name=pipeline state=started enabled=true
+  - name: restart pipeline
+    service: name=pipeline state=restarted enabled=true
     sudo: true
