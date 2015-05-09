@@ -4,16 +4,13 @@
             [lambdacd.steps.manualtrigger :as manualtrigger]
             [lambdacd.steps.git :as git]))
 
-(defn pipeline-working-directory []
-  (System/getProperty "user.dir"))
-
-(def devops-101-repo "git@github.com:flosell/devops-101-lambdacd.git") ;; change this if you want to make your own changes
-
+(def devops-101-repo "https://github.com/flosell/lambdacd.git") ;; change this if you want to make your own changes
+(def devops-101-branch "digitalocean")
 (defn wait-for-repo [_ ctx]
-  (git/wait-for-git ctx devops-101-repo "digitalocean"))
+  (git/wait-for-git ctx devops-101-repo devops-101-branch))
 
 (defn use-digitalocean-branch [& _]
-  {:revision "digitalocean" :status :success})
+  {:revision devops-101-branch :status :success})
 
 (defn manual-trigger [args ctx]
   (support/chain-steps args ctx
@@ -25,13 +22,8 @@
 
 (defn build [args ctx]
   (shell/bash ctx (:cwd args)
-              "set -x"
-              "lein test"
               "lein uberjar"))
 
 (defn deploy [args ctx]
   (shell/bash ctx (:cwd args)
               "bin/deploy-lambdacd.sh"))
-
-(defn stop-to-restart [args ctx]
-  (System/exit 0))
