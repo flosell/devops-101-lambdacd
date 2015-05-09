@@ -11,7 +11,7 @@ function droplet_not_present {
 
 if droplet_not_present ${CI_DROPLET_NAME}; then
   echob "Spinning up new instance to hold LambdaCD"
-  tugboat create ${CI_DROPLET_NAME} --image ${UBUNTU_IMAGE_ID}
+  tugboat create ${CI_DROPLET_NAME} --image ${UBUNTU_IMAGE_ID} --size 64
   tugboat wait ${CI_DROPLET_NAME}
 fi
 
