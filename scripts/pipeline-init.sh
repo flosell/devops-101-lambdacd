@@ -21,7 +21,8 @@ DAEMON=/opt/pipeline/${NAME}
 DAEMON_ARGS=""
 PIDFILE=/opt/pipeline/pipeline.pid
 SCRIPTNAME=/etc/init.d/pipeline
-USER=pipeline
+USER=root
+export LEIN_ROOT="true"
 
 # Exit if the package is not installed
 [ -x "$DAEMON" ] || exit 0
