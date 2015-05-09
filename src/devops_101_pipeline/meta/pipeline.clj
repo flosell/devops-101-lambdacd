@@ -6,10 +6,11 @@
 (def pipeline-def
   `(
      (either
-       lambdacd.steps.manualtrigger/wait-for-manual-trigger
+       manual-trigger
        wait-for-repo)
      (with-repo
-       build-pipeline)
+       build
+       deploy)
      lambdacd.steps.manualtrigger/wait-for-manual-trigger
      stop-to-restart
   ))

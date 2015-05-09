@@ -5,6 +5,8 @@ SCRIPT_DIR="$(dirname "$0")"
 LOGFILE="${SCRIPT_DIR}/pipeline-process.log"
 PIDFILE="${SCRIPT_DIR}/pipeline.pid"
 
+export LAMBDACD_HOST="localhost"
+
 function run() {
   trap 'kill -TERM $PID; exit' SIGHUP SIGINT SIGTERM
   PIPELINE_JAR_PATTERN="pipeline-*-standalone.jar"
