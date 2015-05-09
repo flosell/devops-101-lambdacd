@@ -1,27 +1,8 @@
 ---
 
-- hosts: ci-master
+- hosts: all
 
   tasks:
-  - name: ensure that the pipeline-user exists
-    user: name=pipeline
-    sudo: true
-
-  - name: ensure that there is a folder to install the pipeline in
-    file: path=/opt/pipeline state=directory owner=pipeline
-    sudo: true
-
-  - name: ensure that the initial pipeline is present
-    copy: src=../pipeline-0-standalone.jar dest=/opt/pipeline/ owner=pipeline
-    sudo: true
-
-  - name: ensure that the the pipeline-start-script is present
-    copy: src=../scripts/runner.sh dest=/opt/pipeline/ mode=755 owner=pipeline
-    sudo: true
-
-  - name: ensure that the the pipeline-init-script is present
-    copy: src=../scripts/pipeline-init.sh dest=/etc/init.d/pipeline mode=755
-    sudo: true
 
   - name: ensure apt cache is up to date
     apt: update_cache=yes
@@ -31,12 +12,31 @@
     apt: upgrade=dist
     sudo: true
 
+  - name: ensure make is installed (for ruby...)
+    apt: name=make state=present
+
+  - name: ensure that ruby is installed
+    apt: name=ruby1.9.1 state=present
+    sudo: true
+
+  - name: ensure that ruby-dev is installed
+    apt: name=ruby1.9.1-dev state=present
+    sudo: true
+
+  - name: ensure tugboat gem is installed
+    gem: name=tugboat version=0.2.0 user_install=no state=present
+    sudo: true
+
   - name: ensure that java is installed
     apt: name=openjdk-7-jdk state=present
     sudo: true
 
   - name: ensure that git is installed
     apt: name=git state=present
+    sudo: true
+
+  - name: ensure ansible is installed
+    apt: name=ansible state=present
     sudo: true
 
   - name: ensure the instance hostname is set to ci-master
@@ -51,25 +51,9 @@
     get_url: url=https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein dest=/usr/local/bin/lein mode=755
     sudo: true
 
-  - name: ensure that pip is installed
-    apt: name=python-pip state=present
-    sudo: true
-
-  - name: ensure that the aws cli is installed
-    pip: name=awscli
-    sudo: true
-
-  - name: ensure that ruby is installed
-    apt: name=ruby1.9.1 state=present
-    sudo: true
-
   - name: reboot if required
     command: /sbin/reboot removes=/var/run/reboot-required
     sudo: true
 
   - name: wait for host in case reboot occured
     local_action: wait_for host={{ inventory_hostname }} port=22
-
-  - name: start pipeline
-    service: name=pipeline state=started enabled=true
-    sudo: true
