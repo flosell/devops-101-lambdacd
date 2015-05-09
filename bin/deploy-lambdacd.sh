@@ -19,7 +19,7 @@ fi
 
 echo "Starting deployment of LambdaCD to $LAMBDACD_HOST"
 
-if [ "$LAMBDACD_HOST" -eq "localhost" ]; then
+if [ "$LAMBDACD_HOST" == "localhost" ]; then
     C="local"
 else
     C="ssh"
