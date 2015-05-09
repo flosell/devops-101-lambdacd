@@ -10,7 +10,4 @@
        wait-for-repo)
      (with-repo
        build
-       deploy)
-     lambdacd.steps.manualtrigger/wait-for-manual-trigger
-     stop-to-restart
-  ))
+       deploy)))
