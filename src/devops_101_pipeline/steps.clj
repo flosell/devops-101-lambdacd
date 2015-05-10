@@ -24,3 +24,8 @@
 
 (defn deploy-step [{cwd :cwd} ctx]
   (deploy-scripts/deploy cwd ctx))
+
+
+(defn smoke-test [args ctx]
+  (shell/bash ctx "/"
+              "while [ `curl --write-out %{http_code} --silent --output /dev/null http://192.34.62.217:8080/` != 200 ]; do echo waiting; sleep 1; done"))
