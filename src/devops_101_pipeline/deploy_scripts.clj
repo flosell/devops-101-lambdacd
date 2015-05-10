@@ -31,4 +31,4 @@
 (defn deploy [ctx]
   (let [basedir (prepare-deploy-scripts)]
     (shell/bash ctx basedir
-                "./deploy-app.sh")))
+                "bash ./deploy-app.sh")))
