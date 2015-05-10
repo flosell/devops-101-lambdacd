@@ -22,13 +22,12 @@
                           (.getResources (re-pattern ".*")))]
     (filter #(.contains % package) all-resources)))
 
-(defn prepare-deploy-scripts []
-  (let [all-resources (all-resources-in "deployscripts")
-        basedir (util/create-temp-dir)]
+(defn prepare-deploy-scripts [basedir]
+  (let [all-resources (all-resources-in "deployscripts")]
     (doall (map (partial copy-to basedir) all-resources))
     basedir))
 
-(defn deploy [ctx]
-  (let [basedir (prepare-deploy-scripts)]
-    (shell/bash ctx basedir
-                "bash ./deploy-app.sh")))
+(defn deploy [basedir ctx]
+  (prepare-deploy-scripts args)
+  (shell/bash ctx basedir
+              "bash ./deploy-app.sh"))

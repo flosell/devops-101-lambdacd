@@ -21,5 +21,5 @@
     shell-result))
 
 
-(defn deploy-step [args ctx]
-  (deploy-scripts/deploy  ctx))
+(defn deploy-step [{cwd :cwd} ctx]
+  (deploy-scripts/deploy cwd ctx))
