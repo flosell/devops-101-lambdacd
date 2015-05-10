@@ -8,10 +8,6 @@
     apt: update_cache=yes
     sudo: true
 
-  - name: ensure all packages are up to date
-    apt: upgrade=dist
-    sudo: true
-
   - name: ensure make is installed (for ruby...)
     apt: name=make state=present
 

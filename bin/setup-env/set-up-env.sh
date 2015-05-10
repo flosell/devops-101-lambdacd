@@ -37,6 +37,7 @@ function start_droplet {
     echo -n "."
     sleep 1
   done
+  echob
 }
 
 start_droplet ${APP_DROPLET_NAME} ${SMALL_INSTANCE_SIZE}

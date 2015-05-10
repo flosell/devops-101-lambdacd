@@ -8,10 +8,6 @@
     apt: update_cache=yes
     sudo: true
 
-  - name: ensure all packages are up to date
-    apt: upgrade=dist
-    sudo: true
-
   - name: ensure that java is installed
     apt: name=openjdk-7-jdk state=present
     sudo: true
