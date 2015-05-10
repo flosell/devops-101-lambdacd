@@ -11,7 +11,7 @@
     copy: src=../pipeline-0-standalone.jar dest=/opt/pipeline/pipeline-0-standalone.jar
     sudo: true
 
-  - name: ensure that the the pipeline-init-script is present
+  - name: ensure that upstart configuration is present
     copy: src=lambdacd.conf dest=/etc/init/lambdacd.conf mode=755
     sudo: true
 
