@@ -28,8 +28,7 @@
     (doall (map (partial copy-to basedir) all-resources))
     basedir))
 
-(defn deploy [s3-address build-id ctx]
+(defn deploy [ctx]
   (let [basedir (prepare-deploy-scripts)]
     (shell/bash ctx basedir
-                (str "ruby deploy-new-app-server.rb " s3-address " " build-id)
-                (str "ruby retire-old-app-server.rb " build-id))))
+                "./deploy-app.sh")))

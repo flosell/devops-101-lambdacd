@@ -1,0 +1,20 @@
+---
+
+- hosts: all
+
+  tasks:
+  - name: ensure that there is a folder to install the pipeline in
+    file: path=/opt/app state=directory
+    sudo: true
+
+  - name: ensure that the initial pipeline is present
+    copy: src=app.jar dest=/opt/app/app.jar
+    sudo: true
+
+  - name: ensure that the the pipeline-init-script is present
+    copy: src=demo-app.conf dest=/etc/init/demo-app.conf mode=755
+    sudo: true
+
+  - name: restart app
+    service: name=demo-app state=restarted enabled=true
+    sudo: true

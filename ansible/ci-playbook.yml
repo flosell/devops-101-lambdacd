@@ -47,9 +47,22 @@
     lineinfile: dest=/etc/hosts regexp='^127\.0\.0\.1 localhost' line="127.0.0.1 localhost ci-master"
     sudo: true
 
+  - name: ensure that the hosts file has the hostname app-server pointing to {{ app_server_ip }}
+    lineinfile: dest=/etc/hosts regexp=' app-server' line="{{ app_server_ip }} app-server"
+    sudo: true
+
   - name: ensure that the leiningen bootstrap script has been downloaded
     get_url: url=https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein dest=/usr/local/bin/lein mode=755
     sudo: true
+
+  - name: that the deploy-private key is installed
+    copy: src=~/.ssh/deploy_key dest=/root/.ssh/id_rsa mode=600
+    sudo: true
+
+  - name: that the deploy-private key is installed
+    copy: src=~/.ssh/deploy_key.pub dest=/root/.ssh/id_rsa.pub mode=644
+    sudo: true
+
 
   - name: reboot if required
     command: /sbin/reboot removes=/var/run/reboot-required
