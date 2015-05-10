@@ -8,19 +8,15 @@
     sudo: true
 
   - name: ensure that the initial pipeline is present
-    copy: src=../pipeline-0-standalone.jar dest=/opt/pipeline/
-    sudo: true
-
-  - name: ensure that the the pipeline-start-script is present
-    copy: src=../scripts/runner.sh dest=/opt/pipeline/ mode=755
+    copy: src=../pipeline-0-standalone.jar dest=/opt/pipeline/pipeline-0-standalone.jar
     sudo: true
 
   - name: ensure that the the pipeline-init-script is present
-    copy: src=../scripts/pipeline-init.sh dest=/etc/init.d/pipeline mode=755
+    copy: src=lambdacd.conf dest=/etc/init/lambdacd.conf mode=755
     sudo: true
 
   - name: restart pipeline
-    service: name=pipeline state=restarted enabled=true
+    service: name=lambdacd state=restarted enabled=true
     sudo: true
     async: 45
     poll: 5

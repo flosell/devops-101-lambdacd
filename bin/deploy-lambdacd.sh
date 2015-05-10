@@ -29,4 +29,4 @@ else
     OPTIONAL_KEY="--private-key $DEPLOY_PRIVATE_KEY"
 fi
 
-ansible-playbook  -i "${LAMBDACD_HOST}," -c ${C} ${OPTIONAL_KEY} -u root ../ansible/deploy-lambdacd.yml
+ansible-playbook  -i "${LAMBDACD_HOST}," -c ${C} ${OPTIONAL_KEY} -u root deploy-lambdacd.yml

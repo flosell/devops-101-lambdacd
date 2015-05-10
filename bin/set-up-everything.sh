@@ -45,7 +45,7 @@ APP_DROPLET_IP=$(droplet_ip ${APP_DROPLET_NAME})
 echob "Droplet ${APP_DROPLET_NAME} ready to go at ${APP_DROPLET_IP}"
 
 echob "Provisioning App Server..."
-ansible-playbook  --inventory "${APP_DROPLET_IP}," --private-key ${DEPLOY_PRIVATE_KEY} --user root ../ansible/app-playbook.yml
+ansible-playbook  --inventory "${APP_DROPLET_IP}," --private-key ${DEPLOY_PRIVATE_KEY} --user root app-playbook.yml
 
 
 
@@ -55,7 +55,7 @@ echob "Droplet ${CI_DROPLET_NAME} ready to go at ${CI_DROPLET_IP}"
 echob
 
 echob "Provisioning CI Server..."
-ansible-playbook  --inventory "${CI_DROPLET_IP}," --private-key ${DEPLOY_PRIVATE_KEY} -u root --extra-vars "app_server_ip=${APP_DROPLET_IP}" ../ansible/ci-playbook.yml
+ansible-playbook  --inventory "${CI_DROPLET_IP}," --private-key ${DEPLOY_PRIVATE_KEY} -u root --extra-vars "app_server_ip=${APP_DROPLET_IP}" ci-playbook.yml
 
 echob
 echob "Your CI Machine is provisioned successfully."
