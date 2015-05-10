@@ -17,7 +17,8 @@
         shell-result (shell/bash ctx app-folder
                                  "set -x"
                                  "lein test"
-                                 "lein uberjar")]
+                                 "lein uberjar"
+                                 "mv target/uberjar/*-standalone.jar ../../app.jar")]
     shell-result))
 
 
