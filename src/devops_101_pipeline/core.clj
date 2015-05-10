@@ -20,16 +20,16 @@
     (.mkdirs d)
     d))
 
-  (defn- index []
-  (h/html
-    (page/html5
-      [:head
-       [:title "Pipelines"]]
-      [:body
-       [:h1 "Pipelines"]
-       [:ul
-        [:li [:a {:href "pipeline/"} "DevOps 101 Demo Pipeline"]]
-        [:li [:a {:href "meta/"} "Meta-Pipeline"]]]])))
+(defn- index []
+(h/html
+  (page/html5
+    [:head
+     [:title "Pipelines"]]
+    [:body
+     [:h1 "Pipelines"]
+     [:ul
+      [:li [:a {:href "pipeline/"} "DevOps 101 Demo Pipeline"]]
+      [:li [:a {:href "meta/"} "Meta-Pipeline"]]]])))
 
 (defn mk-routes [meta-routes pipeline-routes cctray-pipeline-handler]
   (routes

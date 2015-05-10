@@ -2,15 +2,16 @@
 
 Sample code for a continuous delivery infrastructure in pure code: 
 
-* Spin up a [LambdaCD](https://github.com/flosell/lambdacd)-Instance on AWS
-* Use LambdaCD to compile, test, and deploy an dummy application on AWS
-* based on [devops-101](https://github.com/kgxsz/devops-101)
+* Spin up a [LambdaCD](https://github.com/flosell/lambdacd)-Instance on DigitalOcean
+* Use LambdaCD to compile, test, and deploy an dummy application on DigitalOcean
+* inspired by [devops-101](https://github.com/kgxsz/devops-101)
 
 ## Requirements
 
 * Ansible
-* AWS CLI
+* Tugboat
 * Leiningen
+* Bash
 
 ## Usage
 
