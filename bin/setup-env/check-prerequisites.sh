@@ -4,7 +4,7 @@ SCRIPT_DIR=$(dirname $0)
 
 cd ${SCRIPT_DIR}
 
-. _common.sh
+. ../_common.sh
 
 function key_present {
   tugboat keys | grep "^$1 (id:" > /dev/null 2>&1

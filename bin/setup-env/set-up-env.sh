@@ -2,7 +2,7 @@
 set -e
 SCRIPT_DIR=$(dirname $0)
 cd ${SCRIPT_DIR}
-. _common.sh
+. ../_common.sh
 ./check-prerequisites.sh
 
 function droplet_present {

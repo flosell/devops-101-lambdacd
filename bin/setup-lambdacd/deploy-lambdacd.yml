@@ -8,7 +8,7 @@
     sudo: true
 
   - name: ensure that the initial pipeline is present
-    copy: src=../pipeline-0-standalone.jar dest=/opt/pipeline/pipeline-0-standalone.jar
+    copy: src=../../pipeline-0-standalone.jar dest=/opt/pipeline/pipeline-0-standalone.jar
     sudo: true
 
   - name: ensure that upstart configuration is present

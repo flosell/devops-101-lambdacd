@@ -26,4 +26,4 @@
 
 (defn deploy [args ctx]
   (shell/bash ctx (:cwd args)
-              "bin/deploy-lambdacd.sh"))
+              "bin/setup-lambdacd/deploy-lambdacd.sh"))

@@ -17,7 +17,7 @@ Sample code for a continuous delivery infrastructure in pure code:
 
 * fork and clone this repo
 * configure your own fork as the repo in `src/devops_101_pipeline/meta`
-* `bin/set-up-everything.sh` will set up an initial pipeline on AWS that will deploy a dummy application.
+* `bin/setup-env/set-up-env.sh` will set up an initial pipeline on AWS that will deploy a dummy application.
 * your pipeline code is in `src/`. Make some changes, push them and have a look at your meta-pipeline. It will now build a new instance of the pipeline and (after you trigger the last step) redeploy itself.
 
 

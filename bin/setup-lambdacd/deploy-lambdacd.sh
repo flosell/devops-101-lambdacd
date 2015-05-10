@@ -11,11 +11,11 @@ if [ -z $LAMBDACD_HOST ]; then
 fi
 
 cd ${SCRIPT_DIR}
-. _common.sh
+. ../_common.sh
 
-cp ../target/*-standalone.jar ../pipeline-0-standalone.jar
+cp ../../target/*-standalone.jar ../../pipeline-0-standalone.jar
 
-if [ ! -f ../pipeline-0-standalone.jar ]; then
+if [ ! -f ../../pipeline-0-standalone.jar ]; then
     echo "No Pipeline-Jar, did you run lein uberjar?"
     exit 1
 fi
