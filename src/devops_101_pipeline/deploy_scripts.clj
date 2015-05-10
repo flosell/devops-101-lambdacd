@@ -11,21 +11,10 @@
   (let [res-file-name (last (.split resource-name "/"))]
     (spit (str dir "/" res-file-name) (slurp (io/resource resource-name)))))
 
-(defn resource-config [package]
-  (-> (ConfigurationBuilder.)
-      (.setUrls (ClasspathHelper/forPackage package
-                                                         (into-array ClassLoader `())))
-      (.setScanners (into-array ResourcesScanner [(ResourcesScanner.)]))))
-
-(defn all-resources-in [package]
-  (let [all-resources (-> (Reflections. (resource-config package))
-                          (.getResources (re-pattern ".*")))]
-    (filter #(.contains % package) all-resources)))
-
 (defn prepare-deploy-scripts [basedir]
-  (let [all-resources (all-resources-in "deployscripts")]
-    (doall (map (partial copy-to basedir) all-resources))
-    basedir))
+  (copy-to basedir "deployscripts/demo-app.conf")
+  (copy-to basedir "deployscripts/deploy-app.yml")
+  (copy-to basedir "deployscripts/deploy-app.sh"))
 
 (defn deploy [basedir ctx]
   (prepare-deploy-scripts basedir)
