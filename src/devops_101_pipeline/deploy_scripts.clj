@@ -28,6 +28,6 @@
     basedir))
 
 (defn deploy [basedir ctx]
-  (prepare-deploy-scripts args)
+  (prepare-deploy-scripts basedir)
   (shell/bash ctx basedir
               "bash ./deploy-app.sh"))
