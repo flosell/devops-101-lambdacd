@@ -30,7 +30,11 @@ _(Note: this could be fully automated but for demonstration purposes currently i
   You can now run your pipeline to deploy a dummy app to the server.
   Make changes to your pipeline and push them. This will trigger the meta-pipeline, deploying a new version of LambdaCD with your changes.
 
+## Deploy to AWS (Old example)
 
+This repo previously contained a demo application more closely inspired by [devops-101](https://github.com/kgxsz/devops-101)
+that deployed to AWS. This code is still available on the [aws branch](https://github.com/flosell/devops-101-lambdacd/tree/aws)
+but currently not maintained anymore as it required too many moving parts that had nothing to do with LambdaCD. 
 
 ## License
 
