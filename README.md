@@ -8,6 +8,8 @@ Sample code for a continuous delivery infrastructure in pure code:
 
 ## Requirements
 
+* A [DigitalOcean](https://www.digitalocean.com/) account
+
 * Ansible
 * Tugboat
 * Leiningen
@@ -15,10 +17,19 @@ Sample code for a continuous delivery infrastructure in pure code:
 
 ## Usage
 
+_(Note: this could be fully automated but for demonstration purposes currently isn't)_
+
 * fork and clone this repo
-* configure your own fork as the repo in `src/devops_101_pipeline/meta`
-* `bin/setup-env/set-up-env.sh` will set up an initial pipeline on AWS that will deploy a dummy application.
-* your pipeline code is in `src/`. Make some changes, push them and have a look at your meta-pipeline. It will now build a new instance of the pipeline and (after you trigger the last step) redeploy itself.
+* configure your own fork as the repo in `src/devops_101_pipeline/meta`, commit and push your changes
+* call `bin/setup-env/set-up-env.sh` to set up an initial environment with two servers, one for you app, the other one for lambdacd
+* call `export LAMBDACD_HOST=<ci server ip>`
+* call `lein run` to start LambdaCD
+* open LambdaCD in your browser: http://localhost:8080
+* run the meta-pipeline, this will deploy LambdaCD from the repository to the server you specified in `LAMBDACD_HOST`
+* after the meta-pipeline is done, you now have a fully functional LambdaCD instance on your server. You can stop the local instance.
+  You can now run your pipeline to deploy a dummy app to the server.
+  Make changes to your pipeline and push them. This will trigger the meta-pipeline, deploying a new version of LambdaCD with your changes.
+
 
 
 ## License
